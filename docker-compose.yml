@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+    filler_arena:
+        build:
+            context: .
+            dockerfile: Dockerfile_arena
+        container_name: arena
+        ports:
+            - "8765:8765"
+        environment:
+            - PLAYER1=Player1
+            - PLAYER2=Player2
+            - START_POSITION_COUNT=2
+        volumes:
+            - play_zone:/tmp
+        env_file:
+            - env_file.env
+        depends_on:
+            - player1
+            - player2
+
+    player1:
+        build:
+            context: .
+            dockerfile: Dockerfile_python
+        container_name: player1
+        environment:
+            - PLAYER_NAME=Player1
+        volumes:
+            - play_zone:/tmp
+        env_file:
+            - env_file.env
+
+    player2:
+        build:
+            context: .
+            dockerfile: Dockerfile_python
+        container_name: player2
+        environment:
+            - PLAYER_NAME=Player2
+        volumes:
+            - play_zone:/tmp
+        env_file:
+            - env_file.env
+
+volumes:
+    play_zone:
