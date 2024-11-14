@@ -13,3 +13,7 @@ calcul de la distance entre du point le plus proche pour chaque adversaire
 Classe player qui contient les actions de recherche du joueur
 Fonction pour determiner le sens de la piece
 <!-- Une fonction pour determiner le nombre de d'elements d'un joueur et ou il se situe par rapport aux autres -->
+
+
+
+
