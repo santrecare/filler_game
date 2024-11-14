@@ -1,0 +1,5 @@
+FROM python:3.12
+WORKDIR /app
+COPY python_player0 /app/python_player0
+RUN pip install -e /app/python_player0
+CMD ["python", "-u", "-m", "python_player0.command.play"]

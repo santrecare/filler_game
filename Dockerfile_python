@@ -2,4 +2,4 @@ FROM python:3.12
 WORKDIR /app
 COPY python_player /app/python_player
 RUN pip install -e /app/python_player
-CMD ["python", "-m", "python_player.player"]
+CMD ["python", "-u", "-m", "python_player.command.play"]

@@ -8,14 +8,21 @@ services:
         container_name: arena
         ports:
             - "8765:8765"
-        environment:
-            - PLAYER1=Player1
-            - PLAYER2=Player2
-            - START_POSITION_COUNT=2
         volumes:
             - play_zone:/tmp
-        env_file:
-            - env_file.env
+        environment:
+            - ARENA_PATH=/tmp
+            - PLAYER1=Player1
+            - PLAYER2=Player2
+            - BOARD_SIZE=42
+            - PIECE_SIZE=5
+            - PIECE_DENSITY=3
+        command: sh -c "
+            python -u -m filler_arena.command.run \
+                --arena_path $${ARENA_PATH} --player1 $${PLAYER1} \
+                --player2 $${PLAYER2} --board_size $${BOARD_SIZE} \
+                --piece_size $${PIECE_SIZE} \
+                --piece_density $${PIECE_DENSITY}"
         depends_on:
             - player1
             - player2
@@ -35,7 +42,7 @@ services:
     player2:
         build:
             context: .
-            dockerfile: Dockerfile_python
+            dockerfile: Dockerfile_python0
         container_name: player2
         environment:
             - PLAYER_NAME=Player2

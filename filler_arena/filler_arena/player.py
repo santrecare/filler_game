@@ -10,11 +10,11 @@ class Player:
         self.arena_state_path = path.join(arena_path, f'{player_name}.state.json')
         self.value = value
         self.score = 0
-        self.is_playing = True
+        self.alive = True
 
     def play(self, piece, board):
         with open(self.arena_state_path, 'w') as f:
-            dump({'piece': piece, 'board': board, 'player': self.value}, f)
+            dump({'piece': piece.piece, 'board': board.board, 'player': self.value}, f)
         move = [None, None]
         while not event.is_set():
             if path.exists(self.player_move_path):
@@ -27,3 +27,11 @@ class Player:
                 break
             event.wait(0.05)
         return move
+
+    def get_infos(self):
+        return {
+            'name': self.name,
+            'value': self.value,
+            'score': self.score,
+            'alive': self.alive,
+        }

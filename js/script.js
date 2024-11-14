@@ -37,8 +37,6 @@ function drawBackground() {
 }
 
 function drawGrid(grid, width, height, cellSize, marginLeft=0, marginTop=0) {
-    // marginLeft = mLeft ? (width - cellSize * grid.length) / 2 : 0
-    // marginTop = mTop ? (height - cellSize * grid.length) : 0
     for (let y = 0; y < grid.length; y++) {
         for (let x = 0; x < grid[y].length; x++) {
             drawCell(
@@ -57,6 +55,8 @@ function updateArena() {
     canvas.height = window.innerHeight;
     const playerInfoSize = Math.floor(canvas.height * 0.1);
     drawBackground();
+    if (!arenaState)
+        return;
 
     const arenaCellSize = Math.floor(
         (canvas.height - playerInfoSize) / arenaState['board'].length);

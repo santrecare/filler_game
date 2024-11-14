@@ -2,5 +2,3 @@ FROM python:3.12
 WORKDIR /app
 COPY filler_arena /app/filler_arena
 RUN pip install -e /app/filler_arena
-EXPOSE 8765
-CMD ["python", "-m", "filler_arena.command.run"]
