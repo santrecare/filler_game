@@ -1,43 +1,24 @@
 # Python player template
 
+To start your player
 ```
-{
-    "piece_infos": {
-        "witdh": int,
-        "height": int,
-        "density": float,
-        "is_horizontal": bool,
-        "is_vertical": bool,
-    },
-    "playable_coordinates": [{
-        "coordinates": [int, int],
-        "distance": float,
-        "contact_zone_size": float,
-        "top_border": bool,
-        "bottom_border": bool,
-        "left_border": bool,
-        "right_border": bool,
-    }, { ... }],
-    "board_infos": {
-        "fight_started": bool,
-        "player": {
-            "north": {
-                "percent": int,
-                "top_border": bool,
-                "bottom_border": bool,
-                "left_border": bool,
-                "right_border": bool,
-            },
-            "south": { ... },
-            "east": { ... },
-            "west": { ... },
-            "north_east": { ... },
-            "north_west": { ... },
-            "south_east": { ... },
-            "south_west": { ... },
-            "center": { ... }
-        },
-        "opponent": { ... }
-    }
-}
+docker network create arena-network
+docker-compose up -d
 ```
+
+----
+
+To develop your player, you can open the code in your favorite text editor and modify the function `eval()` in `src/eval/eval.py`
+```
+docker-compose exec -it python_player_template bash
+python -um src.main --player_name python_player_test
+```
+
+---
+
+To stop everything
+```
+docker-compose down
+docker network rm arena-network
+```
+

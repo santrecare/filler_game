@@ -219,16 +219,18 @@ function updateArena() {
         marginLeft=(canvas.width - pieceCellSize * arenaState['piece']['size']) / 2,
         marginTop=(height - pieceCellSize * arenaState['piece']['size']));
 
-    // drawText(
-    //     text=arenaState['player1']['name'] + ' - ' + arenaState['player1']['score'],
-    //     x=canvas.width / 5,
-    //     y=canvas.height - playerInfoSize,
-    //     fontSize=playerInfoSize * 0.7);
-    // drawText(
-    //     text=arenaState['player2']['score'] + ' - ' + arenaState['player2']['name'],
-    //     x=(canvas.width / 5) * 4,
-    //     y=canvas.height - playerInfoSize,
-    //     fontSize=playerInfoSize * 0.7);
+    player1 = document.getElementById('player1-dropdown').options[document.getElementById('player1-dropdown').options.selectedIndex].text;
+    player2 = document.getElementById('player2-dropdown').options[document.getElementById('player2-dropdown').options.selectedIndex].text;
+    drawText(
+        text=player1,
+        x=canvas.width / 5,
+        y=(canvas.height - playerInfoSize) + 15,
+        fontSize=playerInfoSize * 0.6);
+    drawText(
+        text=player2,
+        x=(canvas.width / 5) * 4,
+        y=(canvas.height - playerInfoSize) + 15,
+        fontSize=playerInfoSize * 0.6);
 }
 
 const spectator = new SpectatorClient();

@@ -21,7 +21,7 @@ When you hover over the top of the page, there is a box that allows you to start
 
 ### Players
 
-You can choose from two languages ​​to write your player
+You can choose from two languages to write your player
 
 - PHP
 

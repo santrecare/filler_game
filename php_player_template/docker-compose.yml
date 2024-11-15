@@ -6,11 +6,11 @@ services:
             context: .
             dockerfile: Dockerfile
         environment:
-            - ARENA_HOST=arena
+            - ARENA_HOST=backend-arena
             - ARENA_PORT=8080
             - PLAYER_NAME=PHPPlayerTemplate
         volumes:
-            - src/:/app/
+            - ${PWD}/src/:/app/
         networks:
             - arena-network
 
