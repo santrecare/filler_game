@@ -1,19 +1,34 @@
-# Filler Game
+# Filler game
 
-`python -m filler_arena.command.run`
-`python -m filler_arena.players.player_random_v2`
+Inspired by a 42 subject https://github.com/fpetras/42-subjects/blob/master/filler.en.pdf
 
+### Goal
 
-Fonction
+The aim is to take turns placing a game-supplied piece of random shape and size on a board. To win, you must place more pieces than your opponent.
 
-calcul de la distance entre du point le plus proche pour chaque adversaire
-<!-- algo de pathfinding pour trouver la distance la plus courte entre deux points -->
+### Start
 
+To start the project
+```
+git clone https://github.com/vklaouse/filler_game.git
+cd filler_game/
+docker network create arena-network
+docker-compose up -d
+```
+Then go on `localhost:3000`
 
-Classe player qui contient les actions de recherche du joueur
-Fonction pour determiner le sens de la piece
-<!-- Une fonction pour determiner le nombre de d'elements d'un joueur et ou il se situe par rapport aux autres -->
+When you hover over the top of the page, there is a box that allows you to start a game and define the players who will play it.
 
+### Players
 
+You can choose from two languages ​​to write your player
 
+- PHP
 
+    `cd php_player_template/`
+
+- Python
+
+    `cd python_player_template/`
+
+Instructions to use them are in their README.md

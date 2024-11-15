@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+    php_player_template:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            - ARENA_HOST=arena
+            - ARENA_PORT=8080
+            - PLAYER_NAME=PHPPlayerTemplate
+        volumes:
+            - src/:/app/
+        networks:
+            - arena-network
+
+networks:
+    arena-network:
+        external: true

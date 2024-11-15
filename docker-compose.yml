@@ -1,55 +1,52 @@
 version: '3.8'
 
 services:
-    filler_arena:
-        build:
-            context: .
-            dockerfile: Dockerfile_arena
-        container_name: arena
+    frontend-arena:
+        image: nginx:alpine
+        volumes:
+            - ./frontend_arena/:/usr/share/nginx/html/
         ports:
-            - "8765:8765"
-        volumes:
-            - play_zone:/tmp
+            - "3000:80"
+
+    backend-arena:
+        build:
+            context: ./arena
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8080"
         environment:
-            - ARENA_PATH=/tmp
-            - PLAYER1=Player1
-            - PLAYER2=Player2
-            - BOARD_SIZE=42
-            - PIECE_SIZE=5
-            - PIECE_DENSITY=3
-        command: sh -c "
-            python -u -m filler_arena.command.run \
-                --arena_path $${ARENA_PATH} --player1 $${PLAYER1} \
-                --player2 $${PLAYER2} --board_size $${BOARD_SIZE} \
-                --piece_size $${PIECE_SIZE} \
-                --piece_density $${PIECE_DENSITY}"
+            - RUST_LOG=debug
+            - RUST_BACKTRACE=1
+            - RUST_BACKTRACE=full
+        networks:
+            - arena-network
+
+    python-player:
+        build:
+            context: ./python_player_template
+            dockerfile: Dockerfile
+        environment:
+            - ARENA_HOST=backend-arena
+            - ARENA_PORT=8080
+            - PLAYER_NAME=PythonPlayer
+        networks:
+            - arena-network
         depends_on:
-            - player1
-            - player2
+            - backend-arena
 
-    player1:
+    php-player:
         build:
-            context: .
-            dockerfile: Dockerfile_python
-        container_name: player1
+            context: ./php_player_template
+            dockerfile: Dockerfile
         environment:
-            - PLAYER_NAME=Player1
-        volumes:
-            - play_zone:/tmp
-        env_file:
-            - env_file.env
+            - ARENA_HOST=backend-arena
+            - ARENA_PORT=8080
+            - PLAYER_NAME=PHPPlayer
+        networks:
+            - arena-network
+        depends_on:
+            - backend-arena
 
-    player2:
-        build:
-            context: .
-            dockerfile: Dockerfile_python0
-        container_name: player2
-        environment:
-            - PLAYER_NAME=Player2
-        volumes:
-            - play_zone:/tmp
-        env_file:
-            - env_file.env
-
-volumes:
-    play_zone:
+networks:
+    arena-network:
+        external: true
